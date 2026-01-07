@@ -3,14 +3,18 @@ terraform {
     aws = {
       source = "hashicorp/aws"
     }
-
     harness = {
       source = "harness/harness"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+    }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
     }
   }
 }
 
-#Configure the Harness provider for Next Gen resources
 provider "harness" {
   endpoint         = "https://app.harness.io/gateway"
   account_id       = var.harness_account_id
@@ -18,11 +22,13 @@ provider "harness" {
 }
 
 provider "aws" {
-  region = local.region
+  region = var.region
 }
 
-provider "kubernetes" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  token                  = module.eks.cluster_auth_token
+provider "helm" {
+  kubernetes {
+    host                   = data.aws_eks_cluster.this.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
+    token                  = data.aws_eks_cluster_auth.this.token
+  }
 }

@@ -10,7 +10,7 @@ variable "region" {
 variable "vpc_name" {
   description = "VPC name to be used by pipelines for data"
   type        = string
-  default     = "eks-vpc"
+  default     = "eks-hub-cluster"
 }
 
 variable "ecr_account" {

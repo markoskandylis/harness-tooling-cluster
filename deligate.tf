@@ -4,7 +4,6 @@ resource "harness_platform_delegatetoken" "this" {
   account_id = var.harness_account_id
   org_id     = local.org_id
   project_id = local.project_id
-  tags       = local.tags
 }
 
 module "delegate" {
@@ -12,7 +11,7 @@ module "delegate" {
   version = "0.2.3"
 
   account_id       = var.harness_account_id
-  delegate_token   = resource.harness_platform_delegatetoken.this.token
+  delegate_token   = resource.harness_platform_delegatetoken.this.value
   delegate_name    = var.delegate_name
   deploy_mode      = var.delegate_deploy_mode
   namespace        = var.delegate_namespace

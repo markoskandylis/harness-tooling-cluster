@@ -103,13 +103,34 @@ module "eks" {
     "karpenter.sh/discovery" = local.cluster_name
   }
 
-  compute_config = {
-    enabled    = local.enable_automode
+  compute_config =  local.enable_automode ? {
+    enabled    = true
     node_pools = ["general-purpose"]
-  }
+  } : null
 
   tags = {
     Environment = "dev"
     Terraform   = "true"
   }
+}
+
+
+module "aws_ebs_csi_pod_identity" {
+  source  = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-ebs-csi"
+
+  attach_aws_ebs_csi_policy = true
+  aws_ebs_csi_kms_arns      = ["arn:aws:kms:*:*:key/*"]
+
+  # Pod Identity Associations
+  associations = {
+    addon = {
+      cluster_name    = local.cluster_info.cluster_name
+      namespace       = "kube-system"
+      service_account = "ebs-csi-controller-sa"
+    }
+  }
+
+  tags = local.tags
 }

@@ -3,7 +3,7 @@ locals {
   cluster_name    = var.cluster_name
   cluster_info    = module.eks
   enable_automode = var.enable_automode
-  region          = data.aws_region.current.id
+  region          = var.region
   cluster_version = var.kubernetes_version
   # delegate configuration
   scope      = lower(var.delegate_scope)

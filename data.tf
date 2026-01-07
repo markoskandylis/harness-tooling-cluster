@@ -19,10 +19,19 @@ data "aws_subnets" "private_subnets" {
     values = [data.aws_vpc.vpc.id]
   }
   tags = {
-    Name = "eks-vpc-private-*"
+    Name = "eks-hub-cluster-private-*"
   }
 }
 
+data "aws_eks_cluster" "this" {
+  name = module.eks.cluster_name
+  depends_on = [ module.eks ]
+}
+
+data "aws_eks_cluster_auth" "this" {
+  name = data.aws_eks_cluster.this.name
+  depends_on = [ module.eks ]
+}
 
 data "aws_subnets" "public_subnets" {
   filter {
@@ -30,6 +39,6 @@ data "aws_subnets" "public_subnets" {
     values = [data.aws_vpc.vpc.id]
   }
   tags = {
-    Name = "eks-vpc-public-*"
+    Name = "eks-hub-cluster-public-*"
   }
 }
