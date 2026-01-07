@@ -132,5 +132,7 @@ variable "harness_delegate_replicas" {
 # Sensitive variable for Harness Platform
 variable "harness_platform_api_key" {
   description = "The API key for accessing the Harness Platform."
-  type        = sensitive(optional(string, null))
+  type        = string
+  sensitive   = true
+  default     = ""
 }
