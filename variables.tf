@@ -69,3 +69,68 @@ variable "enable_automode" {
   type        = bool
   default     = false
 }
+
+# Harness Variables
+variable "delegate_token_name" {
+  description = "The name of the delegate token to be created."
+  type        = string
+  default     = "harness-delegate-token"
+}
+
+variable "delegate_scope" {
+  type        = string
+  description = "account | org | project"
+  default     = "org"
+  validation {
+    condition     = contains(["account", "org", "project"], lower(var.delegate_scope))
+    error_message = "delegate_scope must be account, org, or project."
+  }
+}
+
+variable "harness_account_id" {
+  description = "The Harness Account ID where the delegate will be registered."
+  type        = string
+  default     = ""
+}
+
+variable "harness_org_id" {
+  description = "The Harness Organization ID where the delegate will be registered."
+  type        = string
+  default     = ""
+}
+
+variable "harness_project_id" {
+  description = "The Harness Project ID where the delegate will be registered."
+  type        = string
+  default     = ""
+}
+
+variable "delegate_name" {
+  description = "The name of the Harness Delegate."
+  type        = string
+  default     = "harness-delegate"
+}
+
+variable "delegate_deploy_mode" {
+  description = "The deployment mode for the Harness Delegate."
+  type        = string
+  default     = "KUBERNETES"
+}
+
+variable "delegate_namespace" {
+  description = "The Kubernetes namespace where the Harness Delegate will be deployed."
+  type        = string
+  default     = "harness-delegate"
+}
+
+variable "harness_delegate_replicas" {
+  description = "The number of replicas for the Harness Delegate."
+  type        = number
+  default     = 1
+}
+
+# Sensitive variable for Harness Platform
+variable "harness_platform_api_key" {
+  description = "The API key for accessing the Harness Platform."
+  type        = sensitive(optional(string, null))
+}

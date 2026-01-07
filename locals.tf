@@ -1,9 +1,15 @@
 locals {
-  cluster_name            = var.cluster_name
-  cluster_info            = module.eks
-  enable_automode         = var.enable_automode
-  region                  = data.aws_region.current.id
-  cluster_version         = var.kubernetes_version
+  # Cluster Configuration
+  cluster_name    = var.cluster_name
+  cluster_info    = module.eks
+  enable_automode = var.enable_automode
+  region          = data.aws_region.current.id
+  cluster_version = var.kubernetes_version
+  # delegate configuration
+  scope      = lower(var.delegate_scope)
+  account_id = local.scope == "account" ? var.harness_account_id : null
+  org_id     = local.scope == "org" ? var.harness_org_id : null
+  project_id = local.scope == "project" ? var.harness_project_id : null
 
   tags = {
     Blueprint  = local.cluster_name
@@ -12,3 +18,4 @@ locals {
 }
 
 
+# Create a local variable where i define the delegate scope account, org, project
