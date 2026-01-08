@@ -20,3 +20,18 @@ module "delegate" {
   replicas         = var.harness_delegate_replicas
   upgrader_enabled = true
 }
+
+# resource "harness_platform_connector_kubernetes" "this" {
+#   identifier  = "identifier"
+#   name        = "name"
+#   description = "description"
+#   tags        = ["foo:bar"]
+
+#   inherit_from_delegate {
+#     delegate_selectors = [module.delegate.values.delegate_selector]
+#   }
+# }
+
+output "name" {
+  value = module.delegate.values
+}
