@@ -7,6 +7,7 @@ resource "harness_platform_delegatetoken" "this" {
 }
 
 module "delegate" {
+  depends_on = [ module.eks ]
   source  = "harness/harness-delegate/kubernetes"
   version = "0.2.3"
 
