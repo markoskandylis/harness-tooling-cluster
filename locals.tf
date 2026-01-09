@@ -1,6 +1,6 @@
 locals {
   # Cluster Configuration
-  cluster_name    = var.cluster_name
+  cluster_name    = "${var.environmet}-${var.cluster_name}"
   cluster_info    = module.eks
   enable_automode = var.enable_automode
   region          = var.region
@@ -18,6 +18,12 @@ locals {
     namespace                 = var.delegate_namespace
     delegate_deploy_mode      = var.delegate_deploy_mode
     harness_delegate_replicas = var.harness_delegate_replicas
+  }
+
+  kubernetes_connector = {
+    name        = "${var.environmet}-${var.kubernetes_connector_name}"
+    identifier  = "${var.environmet}_${var.kubernetes_connector_identifier}"
+    description = var.kubernetes_connector_description
   }
 
   tags = {

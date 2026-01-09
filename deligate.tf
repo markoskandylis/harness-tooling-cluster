@@ -23,12 +23,12 @@ module "delegate" {
 }
 
 resource "harness_platform_connector_kubernetes" "this" {
-  identifier  = var.kubernetes_connector_identifier
-  name        = var.kubernetes_connector_name
-  description = var.kubernetes_connector_description
+  identifier  = local.kubernetes_connector.identifier
+  name        = local.kubernetes_connector.name
+  description = local.kubernetes_connector.description
   tags        = ["foo:bar"]
 
   inherit_from_delegate {
-    delegate_selectors = [var.delegate_name]
+    delegate_selectors = [local.delegate.name]
   }
 }
