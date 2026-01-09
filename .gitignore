@@ -1,4 +1,5 @@
 local.auto.tfvars
+local.deploy.tf
 .terraform/
 *.tfstate
 *.tfstate.backup

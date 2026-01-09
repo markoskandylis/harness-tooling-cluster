@@ -129,6 +129,25 @@ variable "harness_delegate_replicas" {
   default     = 1
 }
 
+variable "kubernetes_connector_identifier" {
+  description = "The identifier for the Kubernetes connector in Harness."
+  type        = string
+  default     = ""
+}
+
+variable "kubernetes_connector_name" {
+  description = "The name for the Kubernetes connector in Harness."
+  type        = string
+  default     = ""
+}
+
+variable "kubernetes_connector_description" {
+  description = "The description for the Kubernetes connector in Harness."
+  type        = string
+  default     = ""
+}
+
+################################################################################
 # Sensitive variable for Harness Platform
 variable "harness_platform_api_key" {
   description = "The API key for accessing the Harness Platform."

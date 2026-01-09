@@ -22,17 +22,13 @@ module "delegate" {
   upgrader_enabled = true
 }
 
-# resource "harness_platform_connector_kubernetes" "this" {
-#   identifier  = "identifier"
-#   name        = "name"
-#   description = "description"
-#   tags        = ["foo:bar"]
+resource "harness_platform_connector_kubernetes" "this" {
+  identifier  = var.kubernetes_connector_identifier
+  name        = var.kubernetes_connector_name
+  description = var.kubernetes_connector_description
+  tags        = ["foo:bar"]
 
-#   inherit_from_delegate {
-#     delegate_selectors = [module.delegate.values.delegate_selector]
-#   }
-# }
-
-output "name" {
-  value = module.delegate.values
+  inherit_from_delegate {
+    delegate_selectors = [ var.delegate_name]
+  }
 }
