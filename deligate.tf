@@ -1,24 +1,24 @@
 # Create a Harness Delegate Token
 resource "harness_platform_delegatetoken" "this" {
-  name       = var.delegate_token_name
+  name       = local.delegate_token.name
   account_id = var.harness_account_id
-  org_id     = local.org_id
-  project_id = local.project_id
+  org_id     = local.delegate_token.org_id
+  project_id = local.delegate_token.project_id
 }
 
 module "delegate" {
-  depends_on = [ module.eks ]
-  source  = "harness/harness-delegate/kubernetes"
-  version = "0.2.3"
+  depends_on = [module.eks]
+  source     = "harness/harness-delegate/kubernetes"
+  version    = "0.2.3"
 
+  delegate_name    = local.delegate.name
+  namespace        = local.delegate.namespace
   account_id       = var.harness_account_id
   delegate_token   = resource.harness_platform_delegatetoken.this.value
-  delegate_name    = var.delegate_name
-  deploy_mode      = var.delegate_deploy_mode
-  namespace        = var.delegate_namespace
+  deploy_mode      = local.delegate.delegate_deploy_mode
   manager_endpoint = "https://app.harness.io"
   delegate_image   = "us-docker.pkg.dev/gar-prod-setup/harness-public/harness/delegate:25.12.87402"
-  replicas         = var.harness_delegate_replicas
+  replicas         = local.delegate.harness_delegate_replicas
   upgrader_enabled = true
 }
 
@@ -29,6 +29,6 @@ resource "harness_platform_connector_kubernetes" "this" {
   tags        = ["foo:bar"]
 
   inherit_from_delegate {
-    delegate_selectors = [ var.delegate_name]
+    delegate_selectors = [var.delegate_name]
   }
 }

@@ -7,7 +7,7 @@ terraform {
       source = "harness/harness"
     }
     helm = {
-      source  = "hashicorp/helm"
+      source = "hashicorp/helm"
     }
     kubernetes = {
       source = "hashicorp/kubernetes"

@@ -5,11 +5,20 @@ locals {
   enable_automode = var.enable_automode
   region          = var.region
   cluster_version = var.kubernetes_version
+  delegate_scope  = lower(var.delegate_scope)
   # delegate configuration
-  scope      = lower(var.delegate_scope)
-  account_id = local.scope == "account" ? var.harness_account_id : ""
-  org_id     = local.scope == "org" ? var.harness_org_id : ""
-  project_id = local.scope == "project" ? var.harness_project_id : ""
+  delegate_token = {
+    name       = "${var.environmet}-${var.delegate_name}"
+    org_id     = local.delegate_scope == "org" ? var.harness_org_id : ""
+    project_id = local.delegate_scope == "project" ? var.harness_project_id : ""
+  }
+
+  delegate = {
+    name                      = "${var.environmet}-${var.delegate_name}"
+    namespace                 = var.delegate_namespace
+    delegate_deploy_mode      = var.delegate_deploy_mode
+    harness_delegate_replicas = var.harness_delegate_replicas
+  }
 
   tags = {
     Blueprint  = local.cluster_name

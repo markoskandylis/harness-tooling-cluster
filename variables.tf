@@ -25,6 +25,12 @@ variable "kms_key_admin_roles" {
   default     = []
 }
 
+variable "environmet" {
+  description = "Deployment environmnet"
+  type        = string
+  default     = "non-prod"
+}
+
 ################################################################################
 # Cluster Realted Variables
 ################################################################################

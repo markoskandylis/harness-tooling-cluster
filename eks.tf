@@ -122,7 +122,7 @@ module "eks" {
     "karpenter.sh/discovery" = local.cluster_name
   }
 
-  compute_config =  local.enable_automode ? {
+  compute_config = local.enable_automode ? {
     enabled    = true
     node_pools = ["general-purpose"]
   } : null
@@ -135,7 +135,7 @@ module "eks" {
 
 
 module "aws_ebs_csi_pod_identity" {
-  source  = "terraform-aws-modules/eks-pod-identity/aws"
+  source = "terraform-aws-modules/eks-pod-identity/aws"
 
   name = "aws-ebs-csi"
 
