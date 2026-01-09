@@ -120,7 +120,7 @@ variable "delegate_deploy_mode" {
 variable "delegate_namespace" {
   description = "The Kubernetes namespace where the Harness Delegate will be deployed."
   type        = string
-  default     = "harness-delegate"
+  default     = "harness-delegate-tooling"
 }
 
 variable "harness_delegate_replicas" {
@@ -132,19 +132,19 @@ variable "harness_delegate_replicas" {
 variable "kubernetes_connector_identifier" {
   description = "The identifier for the Kubernetes connector in Harness."
   type        = string
-  default     = ""
+  default     = "k8s_connector_tooling"
 }
 
 variable "kubernetes_connector_name" {
   description = "The name for the Kubernetes connector in Harness."
   type        = string
-  default     = ""
+  default     = "k8s-connector-tooling"
 }
 
 variable "kubernetes_connector_description" {
   description = "The description for the Kubernetes connector in Harness."
   type        = string
-  default     = ""
+  default     = "Kubernetes connector for tooling cluster"
 }
 
 ################################################################################
