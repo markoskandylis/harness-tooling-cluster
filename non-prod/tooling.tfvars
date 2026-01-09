@@ -1,0 +1,6 @@
+environment         = "non-prod"
+vpc_name            = "tooling"
+delegate_scope      = "account"
+delegate_token_name = "tooling cluster delegate token"
+delegate_name       = "tooling-delegate"
+delegate_namespace  = "harness-delegate-tooling"

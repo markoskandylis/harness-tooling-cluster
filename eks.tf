@@ -11,6 +11,11 @@ module "eks" {
   # Optional
   endpoint_public_access = true
 
+  kms_key_administrators = [
+    tolist(data.aws_iam_roles.eks_admin_role.arns)[0], # Local EKS admin role
+    tolist(data.aws_iam_roles.pipeline.arns)[0],       # pipeline/OIDC role (or a stable CI role)
+  ]
+
   # Optional: Adds the current caller identity as an administrator via cluster access entry
   enable_cluster_creator_admin_permissions = false
   access_entries = {
@@ -55,9 +60,9 @@ module "eks" {
       # In Case you want to control the version of the ami
       ami_release_version            = var.ami_release_version
       use_latest_ami_release_version = var.managed_node_group_ami != "" ? false : true
-      min_size                       = 3
-      max_size                       = 6
-      desired_size                   = 3
+      min_size                       = 2
+      max_size                       = 4
+      desired_size                   = 2
       block_device_mappings = {
         xvda = {
           device_name = "/dev/xvda"
