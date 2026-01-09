@@ -25,8 +25,8 @@ variable "kms_key_admin_roles" {
   default     = []
 }
 
-variable "environmet" {
-  description = "Deployment environmnet"
+variable "environment" {
+  description = "Deployment environment"
   type        = string
   default     = "non-prod"
 }

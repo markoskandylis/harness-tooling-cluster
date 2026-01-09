@@ -1,6 +1,6 @@
 locals {
   # Cluster Configuration
-  cluster_name    = "${var.environmet}-${var.cluster_name}"
+  cluster_name    = "${var.environment}-${var.cluster_name}"
   cluster_info    = module.eks
   enable_automode = var.enable_automode
   region          = var.region
@@ -8,21 +8,21 @@ locals {
   delegate_scope  = lower(var.delegate_scope)
   # delegate configuration
   delegate_token = {
-    name       = "${var.environmet}-${var.delegate_name}"
+    name       = "${var.environment}-${var.delegate_name}"
     org_id     = local.delegate_scope == "org" ? var.harness_org_id : ""
     project_id = local.delegate_scope == "project" ? var.harness_project_id : ""
   }
 
   delegate = {
-    name                      = "${var.environmet}-${var.delegate_name}"
+    name                      = "${var.environment}-${var.delegate_name}"
     namespace                 = var.delegate_namespace
     delegate_deploy_mode      = var.delegate_deploy_mode
     harness_delegate_replicas = var.harness_delegate_replicas
   }
 
   kubernetes_connector = {
-    name        = "${var.environmet}-${var.kubernetes_connector_name}"
-    identifier  = "${var.environmet}_${var.kubernetes_connector_identifier}"
+    name        = "${var.environment}-${var.kubernetes_connector_name}"
+    identifier  = "${var.environment}_${var.kubernetes_connector_identifier}"
     description = var.kubernetes_connector_description
   }
 
