@@ -80,7 +80,7 @@ variable "enable_automode" {
 variable "delegate_token_name" {
   description = "The name of the delegate token to be created."
   type        = string
-  default     = "tooling cluster delegate token"
+  default     = ""
 }
 
 variable "delegate_scope" {
