@@ -7,9 +7,9 @@ locals {
   cluster_version = var.kubernetes_version
   # delegate configuration
   scope      = lower(var.delegate_scope)
-  account_id = local.scope == "account" ? var.harness_account_id : null
-  org_id     = local.scope == "org" ? var.harness_org_id : null
-  project_id = local.scope == "project" ? var.harness_project_id : null
+  account_id = local.scope == "account" ? var.harness_account_id : ""
+  org_id     = local.scope == "org" ? var.harness_org_id : ""
+  project_id = local.scope == "project" ? var.harness_project_id : ""
 
   tags = {
     Blueprint  = local.cluster_name

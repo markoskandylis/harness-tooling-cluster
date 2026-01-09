@@ -6,6 +6,10 @@ data "aws_iam_roles" "eks_admin_role" {
   name_regex = "AWSReservedSSO_AWSPowerUserAccess_.*"
 }
 
+data "aws_iam_roles" "pipeline" {
+  name_regex = "oidc-mk*"
+}
+
 data "aws_vpc" "vpc" {
   filter {
     name   = "tag:Name"
