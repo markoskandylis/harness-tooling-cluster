@@ -22,7 +22,7 @@ locals {
 
   kubernetes_connector = {
     name        = "${var.environment}-${var.kubernetes_connector_name}"
-    identifier  = "${var.environment}_${var.kubernetes_connector_identifier}"
+    identifier  = replace("${var.environment}_${var.kubernetes_connector_identifier}", "-", "")
     description = var.kubernetes_connector_description
   }
 

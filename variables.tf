@@ -114,7 +114,7 @@ variable "harness_project_id" {
 variable "delegate_name" {
   description = "The name of the Harness Delegate."
   type        = string
-  default     = "harness-delegate"
+  default     = "tooling-delegate"
 }
 
 variable "delegate_deploy_mode" {
@@ -138,13 +138,13 @@ variable "harness_delegate_replicas" {
 variable "kubernetes_connector_identifier" {
   description = "The identifier for the Kubernetes connector in Harness."
   type        = string
-  default     = "k8s_connector_tooling"
+  default     = "toolingconnector"
 }
 
 variable "kubernetes_connector_name" {
   description = "The name for the Kubernetes connector in Harness."
   type        = string
-  default     = "k8s-connector-tooling"
+  default     = "tooling-conector"
 }
 
 variable "kubernetes_connector_description" {
