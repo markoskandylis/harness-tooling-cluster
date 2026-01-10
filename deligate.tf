@@ -9,7 +9,7 @@ resource "harness_platform_delegatetoken" "this" {
 
 module "delegate" {
   count      = var.deploy_delegate ? 1 : 0
-  depends_on = [module.eks]
+  depends_on = [module.eks, module.delegate_pod_identity]
   source     = "harness/harness-delegate/kubernetes"
   version    = "0.2.3"
 
@@ -40,7 +40,7 @@ module "delegate_pod_identity" {
   count  = var.deploy_delegate ? 1 : 0
   source = "terraform-aws-modules/eks-pod-identity/aws"
 
-  name = loca.delegate.name
+  name = local.delegate.name
 
   attach_custom_policy = true
   policy_statements = [
