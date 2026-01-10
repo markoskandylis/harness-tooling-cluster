@@ -1,5 +1,6 @@
 # Create a Harness Delegate Token
 resource "harness_platform_delegatetoken" "this" {
+  count      = var.deploy_delegate ? 1 : 0
   name       = local.delegate_token.name
   account_id = var.harness_account_id
   org_id     = local.delegate_token.org_id
@@ -7,6 +8,7 @@ resource "harness_platform_delegatetoken" "this" {
 }
 
 module "delegate" {
+  count      = var.deploy_delegate ? 1 : 0
   depends_on = [module.eks]
   source     = "harness/harness-delegate/kubernetes"
   version    = "0.2.3"
@@ -23,6 +25,7 @@ module "delegate" {
 }
 
 resource "harness_platform_connector_kubernetes" "this" {
+  count       = var.deploy_delegate ? 1 : 0
   identifier  = local.kubernetes_connector.identifier
   name        = local.kubernetes_connector.name
   description = local.kubernetes_connector.description

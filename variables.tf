@@ -77,6 +77,12 @@ variable "enable_automode" {
 }
 
 # Harness Variables
+variable "deploy_delegate" {
+  description = "Deploy or Not delegate to the cluster"
+  type        = bool
+  default     = true
+}
+
 variable "delegate_token_name" {
   description = "The name of the delegate token to be created."
   type        = string
