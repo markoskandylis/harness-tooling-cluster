@@ -35,3 +35,31 @@ resource "harness_platform_connector_kubernetes" "this" {
     delegate_selectors = [local.delegate.name]
   }
 }
+
+module "delegate_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = loca.delegate.name
+
+  attach_custom_policy = true
+  policy_statements = [
+    {
+      sid       = "ArgoCD"
+      actions   = ["sts:AssumeRole", "sts:TagSession"]
+      resources = ["arn:aws:iam::*:role/oidc-mk"]
+    }
+  ]
+
+  # Pod Identity Associations
+  association_defaults = {
+    namespace = local.delegate.namespace
+  }
+
+  associations = {
+    delegate = {
+      cluster_name    = local.cluster_info.cluster_name
+      service_account = "non-prod-tooling-delegate"
+    }
+  }
+
+}
