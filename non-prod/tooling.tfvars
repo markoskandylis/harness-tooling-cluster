@@ -1,8 +1,8 @@
 environment            = "non-prod"
 vpc_name               = "tooling"
 deploy_delegate        = true
-private_subnets_prefix = "eks-tooling-cluster-private-*"
-public_subnets_prefix  = "eks-tooling-cluster-public-*"
+private_subnets_prefix = "eks-hub-cluster-private-*"
+public_subnets_prefix  = "eks-hub-cluster-public-*"
 delegate_scope         = "account"
 delegate_token_name    = "tooling-cluster"
 delegate_name          = "tooling-delegate"
