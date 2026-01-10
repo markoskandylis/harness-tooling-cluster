@@ -23,7 +23,7 @@ data "aws_subnets" "private_subnets" {
     values = [data.aws_vpc.vpc.id]
   }
   tags = {
-    Name = "eks-hub-cluster-private-*"
+    Name = var.private_subnets_prefix
   }
 }
 
@@ -43,6 +43,6 @@ data "aws_subnets" "public_subnets" {
     values = [data.aws_vpc.vpc.id]
   }
   tags = {
-    Name = "eks-hub-cluster-public-*"
+    Name = var.public_subnets_prefix
   }
 }

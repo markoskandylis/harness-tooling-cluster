@@ -31,6 +31,18 @@ variable "environment" {
   default     = "non-prod"
 }
 
+variable "public_subnets_prefix" {
+  description = "The prefix for the private subnets to be used by the EKS cluster"
+  type        = string
+  default     = "eks-hub-cluster-private-*"
+}
+
+variable "private_subnets_prefix" {
+  description = "The prefix for the private subnets to be used by the EKS cluster"
+  type        = string
+  default     = "eks-hub-cluster-private-*"
+}
+
 ################################################################################
 # Cluster Realted Variables
 ################################################################################

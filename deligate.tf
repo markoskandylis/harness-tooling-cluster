@@ -16,7 +16,7 @@ module "delegate" {
   delegate_name    = local.delegate.name
   namespace        = local.delegate.namespace
   account_id       = var.harness_account_id
-  delegate_token   = resource.harness_platform_delegatetoken.this.value
+  delegate_token   = resource.harness_platform_delegatetoken.this[0].value
   deploy_mode      = local.delegate.delegate_deploy_mode
   manager_endpoint = "https://app.harness.io"
   delegate_image   = "us-docker.pkg.dev/gar-prod-setup/harness-public/harness/delegate:25.12.87402"
