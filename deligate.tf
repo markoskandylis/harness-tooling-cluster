@@ -37,6 +37,7 @@ resource "harness_platform_connector_kubernetes" "this" {
 }
 
 module "delegate_pod_identity" {
+  count  = var.deploy_delegate ? 1 : 0
   source = "terraform-aws-modules/eks-pod-identity/aws"
 
   name = loca.delegate.name
