@@ -86,6 +86,7 @@ variable "deploy_delegate" {
 variable "delegate_token_name" {
   description = "The name of the delegate token to be created."
   type        = string
+  default     = ""
 }
 
 variable "delegate_scope" {
