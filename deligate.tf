@@ -22,7 +22,24 @@ module "delegate" {
   delegate_image   = "us-docker.pkg.dev/gar-prod-setup/harness-public/harness/delegate:25.12.87402"
   replicas         = local.delegate.harness_delegate_replicas
   upgrader_enabled = true
+
+  # IMPORTANT: installs aws-iam-authenticator inside the delegate container
+  init_script = <<-EOT
+  #!/bin/sh
+  set -e
+
+  # Download aws-iam-authenticator (amd64)
+  curl -fsSL -o /usr/local/bin/aws-iam-authenticator \
+    https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64
+
+  chmod +x /usr/local/bin/aws-iam-authenticator
+
+  # Verify
+  /usr/local/bin/aws-iam-authenticator help >/dev/null 2>&1
+EOT
+
 }
+
 
 resource "harness_platform_connector_kubernetes" "this" {
   count       = var.deploy_delegate ? 1 : 0
