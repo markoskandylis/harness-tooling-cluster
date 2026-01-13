@@ -117,13 +117,13 @@ variable "harness_account_id" {
   default     = ""
 }
 
-variable "harness_org_id" {
+variable "delegate_org_id" {
   description = "The Harness Organization ID where the delegate will be registered."
   type        = string
   default     = ""
 }
 
-variable "harness_project_id" {
+variable "delegate_project_id" {
   description = "The Harness Project ID where the delegate will be registered."
   type        = string
   default     = ""
@@ -169,6 +169,11 @@ variable "kubernetes_connector_description" {
   description = "The description for the Kubernetes connector in Harness."
   type        = string
   default     = "Kubernetes connector for tooling cluster"
+}
+
+variable "delegate.oidc_assume_role_arn" {
+  description = "Allowing EKS pod identity delegate to assume role"
+  type = string
 }
 
 ################################################################################

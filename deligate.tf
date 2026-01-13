@@ -62,9 +62,9 @@ module "delegate_pod_identity" {
   attach_custom_policy = true
   policy_statements = [
     {
-      sid       = "ArgoCD"
+      sid       = "DelegateOIDCAssumeRole"
       actions   = ["sts:AssumeRole", "sts:TagSession"]
-      resources = ["arn:aws:iam::*:role/oidc-mk"]
+      resources = [var.delegate.oidc_assume_role_arn]
     }
   ]
 
@@ -81,3 +81,5 @@ module "delegate_pod_identity" {
   }
 
 }
+
+# Translate this to module for the delegate

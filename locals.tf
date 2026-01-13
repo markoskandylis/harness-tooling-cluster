@@ -9,8 +9,8 @@ locals {
   # delegate configuration
   delegate_token = {
     name       = "${var.environment}-${var.delegate_token_name}"
-    org_id     = local.delegate_scope == "org" ? var.harness_org_id : ""
-    project_id = local.delegate_scope == "project" ? var.harness_project_id : ""
+    org_id     = local.delegate_scope == "org" ? var.delegate_org_id : ""
+    project_id = local.delegate_scope == "project" ? var.delegate_project_id : ""
   }
 
   delegate = {
