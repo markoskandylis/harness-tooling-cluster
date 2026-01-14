@@ -64,7 +64,7 @@ module "delegate_pod_identity" {
     {
       sid       = "DelegateOIDCAssumeRole"
       actions   = ["sts:AssumeRole", "sts:TagSession"]
-      resources = [var.delegate.oidc_assume_role_arn]
+      resources = [var.delegate_oidc_assume_role_arn]
     }
   ]
 
