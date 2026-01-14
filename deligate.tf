@@ -42,6 +42,8 @@ EOT
 
 resource "harness_platform_connector_kubernetes" "this" {
   count       = var.deploy_delegate ? 1 : 0
+  org_id      = local.kubernetes_connector.org_id
+  project_id  = local.kubernetes_connector.project_id
   identifier  = local.kubernetes_connector.identifier
   name        = local.kubernetes_connector.name
   description = local.kubernetes_connector.description

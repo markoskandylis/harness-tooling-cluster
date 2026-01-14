@@ -26,6 +26,8 @@ locals {
     name        = "${var.environment}-${var.kubernetes_connector_name}"
     identifier  = replace("${var.environment}_${var.kubernetes_connector_identifier}", "-", "")
     description = var.kubernetes_connector_description
+    org_id     = local.delegate_scope == "org" ? var.delegate_org_id : ""
+    project_id = local.delegate_scope == "project" ? var.delegate_project_id : ""
   }
 
   tags = {
