@@ -7,7 +7,7 @@ data "aws_iam_roles" "eks_admin_role" {
 }
 
 data "aws_iam_roles" "pipeline" {
-  name_regex = "oidc-mk*"
+  name_regex = "platform-team-oidc*"
 }
 
 data "aws_vpc" "vpc" {

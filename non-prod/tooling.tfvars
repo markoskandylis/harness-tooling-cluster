@@ -1,5 +1,6 @@
 environment               = "non-prod"
 vpc_name                  = "tooling"
+cluster_name              = "tooling-cluster"
 deploy_delegate           = true
 delegate_org_id           = "latform_team"
 private_subnets_prefix    = "eks-hub-cluster-private-*"
