@@ -171,7 +171,7 @@ variable "kubernetes_connector_description" {
   default     = "Kubernetes connector for tooling cluster"
 }
 
-variable "delegate.oidc_assume_role_arn" {
+variable "delegate_oidc_assume_role_arn" {
   description = "Allowing EKS pod identity delegate to assume role"
   type        = string
 }
