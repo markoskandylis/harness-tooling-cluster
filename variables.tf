@@ -173,7 +173,7 @@ variable "kubernetes_connector_description" {
 
 variable "delegate.oidc_assume_role_arn" {
   description = "Allowing EKS pod identity delegate to assume role"
-  type = string
+  type        = string
 }
 
 ################################################################################
