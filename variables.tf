@@ -117,6 +117,10 @@ variable "harness_account_id" {
   default     = ""
 }
 
+################################################################################
+# Delegate variables configuration
+################################################################################
+
 variable "delegate_org_id" {
   description = "The Harness Organization ID where the delegate will be registered."
   type        = string
@@ -147,11 +151,20 @@ variable "delegate_namespace" {
   default     = "harness-delegate-tooling"
 }
 
-variable "harness_delegate_replicas" {
+variable "delegate_replicas" {
   description = "The number of replicas for the Harness Delegate."
   type        = number
   default     = 1
 }
+
+variable "delegate_assumed_role_arn" {
+  description = "Allowing EKS pod identity delegate to assume role"
+  type        = string
+}
+
+################################################################################
+# Kubernetes Connector Variables
+################################################################################
 
 variable "kubernetes_connector_identifier" {
   description = "The identifier for the Kubernetes connector in Harness."
@@ -171,13 +184,10 @@ variable "kubernetes_connector_description" {
   default     = "Kubernetes connector for tooling cluster"
 }
 
-variable "delegate_oidc_assume_role_arn" {
-  description = "Allowing EKS pod identity delegate to assume role"
-  type        = string
-}
-
 ################################################################################
 # Sensitive variable for Harness Platform
+################################################################################
+
 variable "harness_platform_api_key" {
   description = "The API key for accessing the Harness Platform."
   type        = string

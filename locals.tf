@@ -6,6 +6,7 @@ locals {
   region          = var.region
   cluster_version = var.kubernetes_version
   delegate_scope  = lower(var.delegate_scope)
+
   # delegate configuration
   delegate_token = {
     name       = "${var.environment}-${var.delegate_token_name}"
@@ -14,10 +15,11 @@ locals {
   }
 
   delegate = {
-    name                      = "${var.environment}-${var.delegate_name}"
-    namespace                 = var.delegate_namespace
-    delegate_deploy_mode      = var.delegate_deploy_mode
-    harness_delegate_replicas = var.harness_delegate_replicas
+    name             = "${var.environment}-${var.delegate_name}"
+    namespace        = var.delegate_namespace
+    deploy_mode      = var.delegate_deploy_mode
+    replicas         = var.delegate_replicas
+    assumed_role_arn = var.delegate_assumed_role_arn
   }
 
   kubernetes_connector = {

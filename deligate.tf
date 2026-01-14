@@ -17,10 +17,10 @@ module "delegate" {
   namespace        = local.delegate.namespace
   account_id       = var.harness_account_id
   delegate_token   = resource.harness_platform_delegatetoken.this[0].value
-  deploy_mode      = local.delegate.delegate_deploy_mode
+  deploy_mode      = local.delegate.deploy_mode
   manager_endpoint = "https://app.harness.io"
   delegate_image   = "us-docker.pkg.dev/gar-prod-setup/harness-public/harness/delegate:25.12.87402"
-  replicas         = local.delegate.harness_delegate_replicas
+  replicas         = local.delegate.replicas
   upgrader_enabled = true
 
   # IMPORTANT: installs aws-iam-authenticator inside the delegate container
@@ -37,7 +37,6 @@ module "delegate" {
   # Verify
   /usr/local/bin/aws-iam-authenticator help >/dev/null 2>&1
 EOT
-
 }
 
 
@@ -64,7 +63,7 @@ module "delegate_pod_identity" {
     {
       sid       = "DelegateOIDCAssumeRole"
       actions   = ["sts:AssumeRole", "sts:TagSession"]
-      resources = [var.delegate_oidc_assume_role_arn]
+      resources = [local.delegate.assumed_role_arn]
     }
   ]
 
@@ -76,7 +75,7 @@ module "delegate_pod_identity" {
   associations = {
     delegate = {
       cluster_name    = local.cluster_info.cluster_name
-      service_account = "non-prod-tooling-delegate"
+      service_account = local.delegate.name
     }
   }
 
