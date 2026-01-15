@@ -54,8 +54,9 @@ resource "harness_platform_connector_kubernetes" "this" {
   }
 }
 
+# If we use OIDC we will not need delegate Pod identitry the related permissions are used from the OIDC role
 module "delegate_pod_identity" {
-  count  = var.deploy_delegate ? 1 : 0
+  count  = local.delegate.deploy_pod_identity ? 1 : 0
   source = "terraform-aws-modules/eks-pod-identity/aws"
 
   name = local.delegate.name

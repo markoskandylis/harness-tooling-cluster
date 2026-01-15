@@ -20,6 +20,7 @@ locals {
     deploy_mode      = var.delegate_deploy_mode
     replicas         = var.delegate_replicas
     assumed_role_arn = var.delegate_assumed_role_arn
+    deploy_pod_identity = var.deploy_delegate_pod_identity
   }
 
   kubernetes_connector = {

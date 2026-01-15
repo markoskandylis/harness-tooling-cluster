@@ -184,6 +184,12 @@ variable "kubernetes_connector_description" {
   default     = "Kubernetes connector for tooling cluster"
 }
 
+variable "deploy_delegate_pod_identity" {
+  description = "Deploying delegate pod identity"
+  type = bool
+  default = false
+}
+
 ################################################################################
 # Sensitive variable for Harness Platform
 ################################################################################
