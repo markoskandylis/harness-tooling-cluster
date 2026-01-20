@@ -81,7 +81,4 @@ module "delegate_pod_identity" {
       service_account = local.delegate.name
     }
   }
-
 }
-
-# Translate this to module for the delegate
