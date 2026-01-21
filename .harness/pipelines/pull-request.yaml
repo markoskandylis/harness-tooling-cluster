@@ -1,0 +1,88 @@
+pipeline:
+  name: IACM-Deploy
+  identifier: IACMDeploy
+  projectIdentifier: infrastructure
+  orgIdentifier: latform_team
+  tags: {}
+  variables:
+    - name: workspace
+      type: String
+      value: <+input>
+      description: Comma-separated list of IaCM workspaces, e.g. ws1,ws2,ws3
+    - name: tfvars_path
+      type: String
+      value: <+input>
+  stages:
+    - stage:
+        name: Deploy-NP
+        identifier: DeployDev
+        description: ""
+        type: IACM
+        spec:
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          workspace: <+pipeline.variables.workspace>
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Trigger Outputs
+                  identifier: Trigger_Outputs
+                  spec:
+                    shell: Sh
+                    command: |-
+                      echo "event: <+trigger.event>"
+                      echo "repoUrl: <+trigger.repoUrl>"
+                      echo "prNumber: <+trigger.prNumber>"
+                      echo "commitSha: <+trigger.commitSha>"
+                      echo "baseCommitSha: <+trigger.baseCommitSha>"
+                      echo "changedFiles:  <+pipeline.variables.tfvars_path>"
+                      echo "changedFiles:  <+trigger.changedFiles>"
+                      echo "workspace: <+<+trigger.changedFiles.get(0)>>"
+              - step:
+                  type: IACMApproval
+                  name: IACMApproval2
+                  identifier: IACMApproval2
+                  spec:
+                    autoApprove: false
+                  timeout: 1h
+              - step:
+                  type: IACMOpenTofuPlugin
+                  name: init
+                  identifier: init
+                  timeout: 10m
+                  spec:
+                    command: init
+              - step:
+                  type: IACMOpenTofuPlugin
+                  name: plan
+                  identifier: plan
+                  timeout: 10m
+                  spec:
+                    command: plan
+              - step:
+                  type: IACMApproval
+                  name: Approval
+                  identifier: Approval
+                  spec:
+                    autoApprove: false
+                  timeout: 1h
+              - step:
+                  type: IACMOpenTofuPlugin
+                  name: apply
+                  identifier: apply
+                  timeout: 10m
+                  spec:
+                    command: apply
+        tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: <+input>
+        repoName: <+input>
+        build: <+input>
+        sparseCheckout: []

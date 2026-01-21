@@ -1,0 +1,49 @@
+trigger:
+  name: IACM Plan
+  identifier: IACM_Plan
+  enabled: true
+  encryptedWebhookSecretIdentifier: ""
+  description: Trigger on IAC plan when we create merge request
+  tags: {}
+  orgIdentifier: latform_team
+  stagesToExecute: []
+  projectIdentifier: infrastructure
+  pipelineIdentifier: IACMDeploy
+  source:
+    type: Webhook
+    spec:
+      type: Github
+      spec:
+        type: Push
+        spec:
+          connectorRef: org.sasplatformteam
+          autoAbortPreviousExecutions: false
+          payloadConditions:
+            - key: changedFiles
+              operator: In
+              value: tenants/.*
+            - key: targetBranch
+              operator: StartsWith
+              value: feature
+          headerConditions: []
+          repoName: harness-tooling-cluster
+          actions: []
+  inputYaml: |
+    pipeline:
+      identifier: IACMDeploy
+      variables:
+        - name: workspace
+          type: String
+          value: <+<+trigger.changedFiles.get(0)>.replaceAll('^.*/','').replaceAll('\\.tfvars$','')>
+        - name: tfvars_path
+          type: String
+          value: <+trigger.changedFiles>
+      properties:
+        ci:
+          codebase:
+            connectorRef: org.sasplatformteam
+            repoName: harness-tooling-cluster
+            build:
+              type: branch
+              spec:
+                branch: <+trigger.branch>
