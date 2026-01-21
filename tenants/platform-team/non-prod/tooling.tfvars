@@ -1,5 +1,5 @@
 environment               = "non-prod"
-values3                     = "testxcv-morex"
+values3                     = "testxcv-morexx"
 vpc_name                  = "tooling"
 deploy_delegate           = true
 delegate_org_id           = "latform_team"
