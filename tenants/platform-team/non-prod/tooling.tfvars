@@ -1,4 +1,5 @@
 environment               = "non-prod"
+values                    = "test"
 vpc_name                  = "tooling"
 deploy_delegate           = true
 delegate_org_id           = "latform_team"
