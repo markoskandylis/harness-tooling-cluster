@@ -60,9 +60,9 @@ module "eks" {
       # In Case you want to control the version of the ami
       ami_release_version            = var.ami_release_version
       use_latest_ami_release_version = var.managed_node_group_ami != "" ? false : true
-      min_size                       = 2
+      min_size                       = 3
       max_size                       = 4
-      desired_size                   = 2
+      desired_size                   = 3
       block_device_mappings = {
         xvda = {
           device_name = "/dev/xvda"
